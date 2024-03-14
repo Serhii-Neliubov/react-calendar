@@ -76,7 +76,7 @@ export const Home = () => {
       {/* Display events for the selected date */}
       {selectedDate &&
           <div className="mt-4">
-            <h3>Events for {selectedDate.toDateString()}</h3>
+            <h3 className='bg-gray-200 py-[5px] px-[10px] rounded-md'>Events for {selectedDate.toDateString()}</h3>
             <ul className='flex flex-col mt-2 gap-2'>
               {filteredEvents.map((event: IEvent, index) => (
                 <li className='p-[5px] bg-gray-200 rounded-md' key={index}>
