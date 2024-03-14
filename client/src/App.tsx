@@ -11,6 +11,7 @@ import Home from "./pages/Home.tsx";
 function App() {
   const [isAuth, setIsAuth] = useState(false);
 
+
   const checkAuth = async () => {
     try {
       const response = await $api.get(`${API_URL}/refresh`);
