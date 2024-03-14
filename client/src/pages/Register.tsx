@@ -1,13 +1,15 @@
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import {useInput} from "../hooks/useInput";
+import $api from "../assets/http/interceptors.ts";
 
 export const Register = () => {
   const password = useInput('');
   const confirmPassword = useInput('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -23,7 +25,8 @@ export const Register = () => {
         password: formData.get('password'),
       };
 
-      console.log(data);
+      await $api.post('/signup', data);
+      navigate('/login');
     } catch (error){
       console.log(error);
     }

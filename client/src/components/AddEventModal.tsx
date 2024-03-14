@@ -27,6 +27,7 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
     };
 
     setEvents([...events, eventData]);
+    setIsEventFormOpen(false);
   };
 
   return (
@@ -41,19 +42,15 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
                   <form onSubmit={handleSubmit}>
                       <div className="mb-4">
                           <label htmlFor="title" className="block font-semibold mb-1">Title</label>
-                          <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)}
-                                 className="w-full border rounded-md p-2" required/>
+                          <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full border rounded-md p-2" required/>
                       </div>
                       <div className="mb-4">
                           <label htmlFor="time" className="block font-semibold mb-1">Time</label>
-                          <input type="time" id="time" value={time} onChange={(e) => setTime(e.target.value)}
-                                 className="border rounded-md p-2" required/>
+                          <input type="time" id="time" value={time} onChange={(e) => setTime(e.target.value)} className="border rounded-md p-2" required/>
                       </div>
                       <div className="mb-4">
                           <label htmlFor="description" className="block font-semibold mb-1">Description</label>
-                          <textarea id="description" value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    className="w-full border rounded-md p-2" required/>
+                          <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full border rounded-md p-2" required/>
                       </div>
                       <div className="flex justify-end">
                           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2">Save

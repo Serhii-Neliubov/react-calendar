@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import toast from "react-hot-toast";
 import $api from "../assets/http/interceptors.ts";
 
-export const Login = () => {
+export const Login = ({setIsAuth}: {setIsAuth: (value: boolean) => void}) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -15,11 +15,13 @@ export const Login = () => {
       const username = formData.get('username');
       const password = formData.get('password');
 
-      await $api.post('/api/login', {
+      const accessToken = await $api.post('/login', {
         username: username as string,
         password: password as string
       });
 
+      localStorage.setItem('token', accessToken.data.token);
+      setIsAuth(true);
       toast.success('Logged in successfully');
       navigate('/');
     } catch(err) {
