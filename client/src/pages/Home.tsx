@@ -10,7 +10,7 @@ export const Home = () => {
   const [events, setEvents] = useState<IEvent[]>([]);
 
   const totalDays = getDaysInMonth(date.getFullYear(), date.getMonth());
-  const daysInMonth = Array.from({ length: totalDays }, (_, index) => index + 1);
+  const monthlyDays = Array.from({ length: totalDays }, (_, index) => index + 1);
   const weeklyDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const goToPreviousMonth = () => {
@@ -58,12 +58,13 @@ export const Home = () => {
 
       <h2 className="mb-4 text-2xl font-bold text-center">{date.toLocaleString('default', {month: 'long'})} {date.getFullYear()}</h2>
 
+      {/* Grid for days of the week and days of the month */}
       <div className="grid grid-cols-7 bg-gray-200 p-[15px] rounded-md gap-4">
         {weeklyDays.map(day => (
           <div key={day} className="text-center font-semibold">{day}</div>
         ))}
 
-        {daysInMonth.map(day => (
+        {monthlyDays.map(day => (
           <div key={day} className="text-center hover:bg-gray-300 max-w-[30px] max-h-[30px] rounded-md transition-all cursor-pointer" onClick={() => handleDayClick(day)}>
             {day}
           </div>
@@ -72,21 +73,24 @@ export const Home = () => {
 
       <AddEventModal setEvents={setEvents} events={events} date={selectedDate}/>
 
-      {selectedDate && (
-        <div className="mt-4">
-          <h3>Events for {selectedDate.toDateString()}</h3>
-          <ul className='flex flex-col mt-2 gap-2'>
-            {filteredEvents.map((event: IEvent, index) => (
-              <li className='p-[5px] bg-gray-200 rounded-md' key={index}>
-                <strong>{event.title}</strong> - {event.time}
-                <p>{event.description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* Display events for the selected date */}
+      {selectedDate &&
+          <div className="mt-4">
+            <h3>Events for {selectedDate.toDateString()}</h3>
+            <ul className='flex flex-col mt-2 gap-2'>
+              {filteredEvents.map((event: IEvent, index) => (
+                <li className='p-[5px] bg-gray-200 rounded-md' key={index}>
+                  <strong>{event.title}</strong> - {event.time}
+                  <p>{event.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+      }
 
-      <button className='fixed bottom-4 left-4 bg-red-500 text-white py-[10px] px-[15px] rounded-md hover:bg-red-400 transition-all' onClick={logoutHandler}>Logout</button>
+      <button className='fixed bottom-4 left-4 bg-red-500 text-white py-[10px] px-[15px] rounded-md hover:bg-red-400 transition-all' onClick={logoutHandler}>
+        Logout
+      </button>
     </div>
   );
 };

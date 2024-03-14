@@ -12,7 +12,6 @@ interface EventFormProps {
 export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
   const [title, setTitle] = useState('');
   const [time, setTime] = useState('');
-
   const [description, setDescription] = useState('');
   const [isEventFormOpen, setIsEventFormOpen] = useState(false);
 
