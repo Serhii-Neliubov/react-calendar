@@ -16,6 +16,7 @@ app.use(cors({
     credentials: true
 }));
 
+
 const start = async () => {
     try {
         await mongoose.connect(MONGO_ACCESS);
