@@ -22,8 +22,10 @@ class UserService{
 
       localStorage.setItem('token', accessToken.data.token);
       toast.success('Logged in successfully');
+      return {status: 'success'};
     } catch (error){
       console.error('Error with logging out:', error);
+      return {status: 'error'};
     }
   }
 
