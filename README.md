@@ -1,6 +1,6 @@
-# Technologies andd libraries
+# Technologies and libraries
 
-Technologies: React, TypeScript, NodeJS, Express
+Main technologies: React, TypeScript, NodeJS, Express
 
 Libraries [Backend] :  Nodemon, jwtwebtoken, bcrypt, cookie-parser, mongoose, uuid
 
