@@ -1,23 +1,31 @@
 import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Home } from './pages/Home.tsx';
 import { Register } from './pages/Register.tsx';
 import { NotFound } from './pages/NotFound.tsx';
 import { Login } from './pages/Login.tsx';
 import { Toaster } from 'react-hot-toast';
+import $api, {API_URL} from "./assets/http/interceptors.ts";
+import Home from "./pages/Home.tsx";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  const checkAuth = async () => {
+    try {
+      const response = await $api.get(`${API_URL}/refresh`);
 
-    if(token){
+      localStorage.setItem('token', response.data.accessToken);
+
       setIsAuth(true);
-    } else {
+    } catch (error) {
+      console.error('Error with updating token:', error);
       setIsAuth(false);
     }
+  }
+
+  useEffect(() => {
+    checkAuth();
   }, []);
 
   if(isAuth){

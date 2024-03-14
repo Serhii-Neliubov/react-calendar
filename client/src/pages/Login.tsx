@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FormEvent } from "react";
-import toast from "react-hot-toast";
-import $api from "../assets/http/interceptors.ts";
+import UserService from "../services/user.service.ts";
 
 export const Login = ({setIsAuth}: {setIsAuth: (value: boolean) => void}) => {
   const navigate = useNavigate();
@@ -12,17 +11,12 @@ export const Login = ({setIsAuth}: {setIsAuth: (value: boolean) => void}) => {
     try {
       const formData = new FormData(e.currentTarget);
 
-      const username = formData.get('username');
+      const email = formData.get('email');
       const password = formData.get('password');
 
-      const accessToken = await $api.post('/login', {
-        username: username as string,
-        password: password as string
-      });
+      await UserService.login(email, password);
 
-      localStorage.setItem('token', accessToken.data.token);
       setIsAuth(true);
-      toast.success('Logged in successfully');
       navigate('/');
     } catch(err) {
       console.error(err);
@@ -35,8 +29,8 @@ export const Login = ({setIsAuth}: {setIsAuth: (value: boolean) => void}) => {
         <h1 className="text-2xl font-semibold mb-4">Login</h1>
         <form onSubmit={handleSubmit} method="POST">
           <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-600">Username</label>
-            <input type="text" id="username" name="username" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" />
+            <label htmlFor="email" className="block text-gray-600">Email</label>
+            <input type="text" id="email" name="email" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" />
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-600">Password</label>

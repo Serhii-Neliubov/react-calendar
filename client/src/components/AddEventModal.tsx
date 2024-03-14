@@ -62,6 +62,5 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
           </div>
       }
     </React.Fragment>
-
   );
 };

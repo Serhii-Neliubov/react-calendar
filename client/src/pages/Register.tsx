@@ -2,7 +2,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import { FormEvent } from 'react';
 import toast from 'react-hot-toast';
 import {useInput} from "../hooks/useInput";
-import $api from "../assets/http/interceptors.ts";
+import UserService from "../services/user.service.ts";
 
 export const Register = () => {
   const password = useInput('');
@@ -20,12 +20,12 @@ export const Register = () => {
       const formData = new FormData(e.currentTarget);
 
       const data = {
-        username: formData.get('username'),
         email: formData.get('email'),
         password: formData.get('password'),
       };
 
-      await $api.post('/signup', data);
+      await UserService.register(data.email, data.password);
+
       navigate('/login');
     } catch (error){
       console.log(error);
