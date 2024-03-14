@@ -4,7 +4,7 @@ import { IEvent } from '../models/IEvent';
 import UserService from "../services/user.service.ts";
 import {AddEventModal} from "../components/AddEventModal.tsx";
 
-const Home = () => {
+export const Home = () => {
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [events, setEvents] = useState<IEvent[]>([]);
@@ -90,5 +90,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

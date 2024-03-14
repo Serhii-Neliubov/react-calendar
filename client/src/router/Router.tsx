@@ -2,9 +2,9 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
-import { Home } from "../pages/Home.tsx";
 import { Login } from "../pages/Login.tsx";
-import {Register} from "../pages/Register.tsx";
+import { Register } from "../pages/Register.tsx";
+import { Home } from "../pages/Home.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <Login  setIsAuth={() => false}/>,
   },
   {
     path: "/signup",
