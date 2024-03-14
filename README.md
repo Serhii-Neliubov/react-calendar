@@ -2,8 +2,9 @@
 
 Technologies: React, TypeScript, NodeJS, Express
 
-Libraries [Backend] :  Nodemon, jwtwebtokens, bcrypt, cookie-parser, mongoose, uuid
-Libraries [Frontend] : Axios, Nodemon, jwtwebtokens, bcrypt, cookie-parser, mongoose, uuid
+Libraries [Backend] :  Nodemon, jwtwebtoken, bcrypt, cookie-parser, mongoose, uuid
+
+Libraries [Frontend] : Axios, jsonwebtoken, jwtwebtokens, react-hot-toast, tailwind, react-icons
 
 # How to install and open this project
 
