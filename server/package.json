@@ -19,7 +19,6 @@
     "jsonwebtoken": "latest",
     "mongodb": "latest",
     "mongoose": "latest",
-    "nodemailer": "latest",
     "uuid": "latest"
   },
   "devDependencies": {
