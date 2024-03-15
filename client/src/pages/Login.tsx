@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FormEvent } from "react";
 import UserService from "../services/user.service.ts";
+import toast from "react-hot-toast";
 
 export const Login = ({setIsAuth}: {setIsAuth: (value: boolean) => void}) => {
   const navigate = useNavigate();
@@ -14,10 +15,15 @@ export const Login = ({setIsAuth}: {setIsAuth: (value: boolean) => void}) => {
       const email = formData.get('email');
       const password = formData.get('password');
 
-      await UserService.login(email, password);
+      const {status} = await UserService.login(email, password);
 
-      setIsAuth(true);
-      navigate('/');
+      if(status === 'success') {
+        setIsAuth(true);
+        navigate('/');
+      } else {
+        toast.error('Incorrect email or password. Please try again.');
+      }
+
     } catch(err) {
       console.error(err);
     }

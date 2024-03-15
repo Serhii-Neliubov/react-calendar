@@ -18,7 +18,11 @@ function App() {
 
       localStorage.setItem('token', response.data.accessToken);
 
-      setIsAuth(true);
+      const token = localStorage.getItem('token');
+
+      if(token){
+        setIsAuth(true);
+      }
     } catch (error) {
       console.error('Error with updating token:', error);
       setIsAuth(false);
