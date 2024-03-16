@@ -1,6 +1,6 @@
 import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Register } from './pages/Register.tsx';
 import { NotFound } from './pages/NotFound.tsx';
 import { Login } from './pages/Login.tsx';
@@ -29,7 +29,6 @@ function App() {
       setLoading(false);
     } catch (error) {
       console.error('Error with updating token:', error);
-      setIsAuth(false);
       setLoading(false);
     } finally {
       setLoading(false);
@@ -37,7 +36,7 @@ function App() {
   }
 
   useEffect(() => {
-    checkAuth();
+    checkAuth()
   }, []);
 
   return (

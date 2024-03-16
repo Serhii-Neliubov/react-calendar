@@ -1,6 +1,15 @@
 import $api, {API_URL} from "../assets/http/interceptors.ts";
 import toast from "react-hot-toast";
+
 class UserService{
+  getDto = async () => {
+    try {
+      return await $api.get(`${API_URL}/refresh`);
+    } catch (error){
+      console.error('Error with getting user id:', error);
+    }
+  }
+
   logout = async() => {
     try {
       localStorage.removeItem('token');

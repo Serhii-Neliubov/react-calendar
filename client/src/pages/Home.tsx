@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FaLongArrowAltLeft, FaLongArrowAltRight} from 'react-icons/fa';
 import {IEvent} from '../models/IEvent';
 import UserService from "../services/user.service.ts";
@@ -83,6 +83,16 @@ export const Home = ({setIsAuth}: HomeProps) => {
   const getLineClassName = (eventTime: string) => {
     return isEventPassed(eventTime) ? 'line-below' : 'line-above';
   };
+
+  const getAllEvents = async () => {
+    const userDto = await UserService.getDto();
+
+    setEvents(userDto?.data.events || [])
+  }
+
+  useEffect(() => {
+    getAllEvents();
+  }, []);
 
   return (
     <div className="flex flex-col items-center">
