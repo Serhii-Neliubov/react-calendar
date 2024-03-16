@@ -5,6 +5,6 @@ export const useInput = (initialValue: string) => {
 
   return {
     value,
-    onChange: (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value),
+    onChange: (e: ChangeEvent<HTMLInputElement>|  ChangeEvent<HTMLTextAreaElement>) => setValue(e.target.value),
   };
 }

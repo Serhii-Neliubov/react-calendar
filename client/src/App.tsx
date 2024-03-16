@@ -25,6 +25,7 @@ function App() {
       if(token){
         setIsAuth(true);
       }
+
       setLoading(false);
     } catch (error) {
       console.error('Error with updating token:', error);

@@ -36,7 +36,6 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
   return (
     <React.Fragment>
       <button onClick={() => setIsEventFormOpen(true)} className="fixed bottom-4 right-4 hover:bg-blue-400 flex items-center gap-2 transition-all bg-blue-500 text-white px-4 py-2 rounded-md mt-4">Add Event <FaCalendarPlus/></button>
-
       {
         isEventFormOpen &&
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">
@@ -53,7 +52,7 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
                       </div>
                       <div className="mb-4">
                           <label htmlFor="description" className="block font-semibold mb-1">Description</label>
-                          <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full border rounded-md p-2" required/>
+                          <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full border rounded-md p-2 resize-none" required/>
                       </div>
                       <div className="flex justify-end">
                           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2">Save
