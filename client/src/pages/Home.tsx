@@ -116,7 +116,7 @@ export const Home = ({setIsAuth}: HomeProps) => {
               onClick={goToNextMonth}>Next Month<FaLongArrowAltRight/>
             </button>
           </div>
-          <h1 className='underline font-semibold'>Today is: {currentDate.getDate()}:{currentDate.getMonth()}:{currentDate.getFullYear()}</h1>
+          <h1 className='underline font-semibold'>Today is: {currentDate.getDate()}.{currentDate.getMonth()}.{currentDate.getFullYear()}</h1>
           <h2 className="mb-4 text-2xl font-bold text-center">{date.toLocaleString('default', {month: 'long'})} {date.getFullYear()}</h2>
 
           {/* Grid for days of the week and days of the month */}
