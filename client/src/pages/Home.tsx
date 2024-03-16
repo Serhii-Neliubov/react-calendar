@@ -150,10 +150,12 @@ export const Home = ({setIsAuth}: HomeProps) => {
                       for {selectedDate.toDateString()}</h3>
                   <ul className='max-w-[290px] flex flex-col mt-2 gap-2'>
                     {filteredEvents.map((event: IEvent) => (
-                      <li className={`p-[5px] bg-gray-200 rounded-md ${getLineClassName(event.time)}`} key={event._id}>
-                        <strong className='break-words'>{event.title}</strong> - {event.time}
-                        <p className='break-words'>{event.description}</p>
-                        <button onClick={() => deleteEvent(event._id as string)}>Delete</button>
+                      <li className={`p-[5px] bg-gray-200 rounded-md gap-2 items-center flex justify-between ${getLineClassName(event.time)}`} key={event._id}>
+                        <div>
+                          <strong className='break-words'>{event.title}</strong> - {event.time}
+                          <p className='break-words'>{event.description}</p>
+                        </div>
+                        <button className='bg-black text-white rounded-md py-2 px-[10px]' onClick={() => deleteEvent(event._id as string)}>Delete</button>
                       </li>
                     ))}
                   </ul>
