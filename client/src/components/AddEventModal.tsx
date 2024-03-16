@@ -4,6 +4,7 @@ import {FaCalendarPlus} from "react-icons/fa";
 import React from "react";
 import $api from "../assets/http/interceptors.ts";
 import userService from "../services/user.service.ts";
+import UserService from "../services/user.service.ts";
 
 interface EventFormProps {
   date: string | null | Date;
@@ -11,11 +12,17 @@ interface EventFormProps {
   events: IEvent[];
 }
 
-export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
+export const AddEventModal = ({date, setEvents}: EventFormProps) => {
   const [title, setTitle] = useState('');
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
   const [isEventFormOpen, setIsEventFormOpen] = useState(false);
+
+  const getAllEvents = async () => {
+    const userDto = await UserService.getDto();
+
+    setEvents(userDto?.data.events || [])
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,12 +36,11 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
     };
 
     await $api.post('/events', {eventData: eventData, userId: userDto?.data.user.id});
+    await getAllEvents();
 
     setTitle('');
     setTime('');
     setDescription('');
-
-    setEvents([...events, eventData]);
     setIsEventFormOpen(false);
   };
 

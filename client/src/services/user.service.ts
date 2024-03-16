@@ -10,6 +10,14 @@ class UserService{
     }
   }
 
+  deleteEvent = async (eventId: string, userId: string) => {
+    try {
+      return await $api.delete(`/events/${eventId}/${userId}`);
+    } catch (error) {
+      console.error('Error with deleting event:', error);
+    }
+  }
+
   logout = async() => {
     try {
       localStorage.removeItem('token');

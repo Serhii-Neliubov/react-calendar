@@ -12,5 +12,6 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.post('/events', userController.addEvent);
+router.delete('/events/:eventId/:userId', userController.deleteEvent);
 
 module.exports = router
