@@ -7,3 +7,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.line-above {
+  border-bottom: 2px solid green; /* Измените цвет и стиль линии по вашему выбору */
+}
+
+.line-below {
+  border-bottom: 2px solid red; /* Измените цвет и стиль линии по вашему выбору */
+}

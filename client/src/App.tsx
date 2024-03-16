@@ -7,13 +7,15 @@ import { Login } from './pages/Login.tsx';
 import { Toaster } from 'react-hot-toast';
 import $api, {API_URL} from "./assets/http/interceptors.ts";
 import { Home } from "./pages/Home.tsx";
+import {Loading} from "./components/Loading.tsx";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-
+  const [loading, setLoading] = useState(true);
 
   const checkAuth = async () => {
     try {
+      setLoading(true);
       const response = await $api.get(`${API_URL}/refresh`);
 
       localStorage.setItem('token', response.data.accessToken);
@@ -23,9 +25,13 @@ function App() {
       if(token){
         setIsAuth(true);
       }
+      setLoading(false);
     } catch (error) {
       console.error('Error with updating token:', error);
       setIsAuth(false);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -38,13 +44,13 @@ function App() {
       <BrowserRouter>
         {isAuth ?
             <Routes>
-              <Route path='/' element={<Home/>}/>
-              <Route path='/*' element={<NotFound isAuth={isAuth}/>}/>
+              <Route path='/' element={<Home setIsAuth={setIsAuth}/>} />
+              <Route path='/*' element={loading ? <Loading /> : <NotFound isAuth={isAuth}/>} />
             </Routes> :
             <Routes>
               <Route path='/login' element={<Login setIsAuth={setIsAuth}/>}/>
               <Route path='/signup' element={<Register/>}/>
-              <Route path='/*' element={<NotFound isAuth={isAuth}/>}/>
+              <Route path='/*' element={loading ? <Loading /> : <NotFound isAuth={isAuth}/>} />
             </Routes>
         }
       </BrowserRouter>

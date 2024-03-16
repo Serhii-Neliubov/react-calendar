@@ -25,6 +25,10 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
       description
     };
 
+    setTitle('');
+    setTime('');
+    setDescription('');
+
     setEvents([...events, eventData]);
     setIsEventFormOpen(false);
   };
@@ -35,7 +39,7 @@ export const AddEventModal = ({date, setEvents, events}: EventFormProps) => {
 
       {
         isEventFormOpen &&
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-10">
               <div className="bg-white p-4 rounded-lg">
                   <h3 className="text-xl font-semibold mb-4">Add New Event</h3>
                   <form onSubmit={handleSubmit}>

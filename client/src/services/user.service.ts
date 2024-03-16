@@ -4,10 +4,7 @@ class UserService{
   logout = async() => {
     try {
       localStorage.removeItem('token');
-
       await $api.post(`${API_URL}/logout`);
-
-      window.location.reload();
     } catch (error){
       console.error('Error with logging out:', error);
     }
