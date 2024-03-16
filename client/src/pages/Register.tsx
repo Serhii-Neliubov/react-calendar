@@ -26,7 +26,7 @@ export const Register = () => {
 
       await UserService.register(data.email, data.password);
 
-      navigate('/login');
+      navigate('/');
     } catch (error){
       console.log(error);
     }
@@ -55,7 +55,7 @@ export const Register = () => {
           <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">Register</button>
         </form>
         <div className="mt-6 text-blue-500 text-center">
-          <Link to="/login" className="hover:underline">Login Here</Link>
+          <Link to="/" className="hover:underline">Login Here</Link>
         </div>
       </div>
     </div>

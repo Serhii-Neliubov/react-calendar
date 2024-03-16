@@ -3,15 +3,12 @@ import {FaLongArrowAltLeft, FaLongArrowAltRight} from 'react-icons/fa';
 import {IEvent} from '../models/IEvent';
 import UserService from "../services/user.service.ts";
 import {AddEventModal} from "../components/AddEventModal.tsx";
-import {useNavigate} from "react-router-dom";
 
 interface HomeProps {
   setIsAuth: (isAuth: boolean) => void;
 }
 
 export const Home = ({setIsAuth}: HomeProps) => {
-  const navigate = useNavigate();
-
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [events, setEvents] = useState<IEvent[]>([]);
@@ -49,7 +46,6 @@ export const Home = ({setIsAuth}: HomeProps) => {
     try {
       await UserService.logout();
       setIsAuth(false);
-      navigate('/login');
     } catch (error){
       console.error('Error with logging out:', error);
     }

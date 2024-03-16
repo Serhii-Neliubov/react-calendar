@@ -44,12 +44,12 @@ function App() {
       <BrowserRouter>
         {isAuth ?
             <Routes>
-              <Route path='/' element={<Home setIsAuth={setIsAuth}/>} />
+              <Route path='/' element={loading ? <Loading /> : <Home setIsAuth={setIsAuth}/>} />
               <Route path='/*' element={loading ? <Loading /> : <NotFound isAuth={isAuth}/>} />
             </Routes> :
             <Routes>
-              <Route path='/login' element={<Login setIsAuth={setIsAuth}/>}/>
-              <Route path='/signup' element={<Register/>}/>
+              <Route path='/' element={loading ? <Loading /> : <Login setIsAuth={setIsAuth}/>}/>
+              <Route path='/signup' element={loading ? <Loading /> : <Register/>}/>
               <Route path='/*' element={loading ? <Loading /> : <NotFound isAuth={isAuth}/>} />
             </Routes>
         }
