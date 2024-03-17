@@ -1,21 +1,24 @@
 import {IEvent} from "../models/IEvent.ts";
 import { MdDelete } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
-import {useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import UserService from "../services/user.service.ts";
 import { HiDocumentDuplicate } from "react-icons/hi";
 import EventService from "../services/event.service.ts";
 import userService from "../services/user.service.ts";
+import {ChangeEventModal} from "./ChangeEventModal.tsx";
 
 interface EventListProps {
   selectedDate: Date | null;
   events: IEvent[];
   setEvents: (events: IEvent[]) => void;
-  setIsEventFormOpen: (isEventFormOpen: boolean) => void;
 }
 
-export const EventList = ({selectedDate, events, setEvents, setIsEventFormOpen}: EventListProps) => {
+export const EventList = ({selectedDate, events, setEvents}: EventListProps) => {
   const [passedEvents, setPassedEvents] = useState<string[]>([]);
+  const [isChangeEventModalOpen, setIsChangeEventModalOpen] = useState(false);
+
+  const [eventToChange, setEventToChange] = useState<IEvent | null>(null);
 
   useEffect(() => {
     const handleTimeChange = () => {
@@ -68,8 +71,10 @@ export const EventList = ({selectedDate, events, setEvents, setIsEventFormOpen}:
     }
   }
 
-  const changeEvent = async () => {
-    setIsEventFormOpen(true);
+  const changeEvent = async (event: IEvent) => {
+    setEventToChange(event);
+    console.log(event);
+    setIsChangeEventModalOpen(true);
   }
 
   const getAllEvents = async () => {
@@ -85,32 +90,37 @@ export const EventList = ({selectedDate, events, setEvents, setIsEventFormOpen}:
 
   return (
     selectedDate &&
-      <div className="mt-4">
-        {!filteredEvents.length &&
-            <h3 className='bg-gray-200 py-[5px] px-[10px] rounded-md'>
-              You have no events for {selectedDate.toDateString()}
-            </h3>
-        }
-          <ul className='max-w-[290px] flex flex-col mt-2 gap-2'>
-            {filteredEvents.map((event: IEvent) => (
-              <li
-                className={`p-[5px] bg-gray-200 rounded-md gap-2 items-center flex justify-between ${getLineClassName(event.time)} ${passedEvents.includes(event._id as string) ? 'event-passed' : ''}`}
-                key={event._id}>
-                <div>
-                  <strong className='break-words'>{event.title}</strong> - {event.time}
-                  <p className='break-words'>{event.description}</p>
-                </div>
-                <div className='flex flex-col gap-1'>
-                  <button className='bg-red-500 hover:bg-red-400 transition-all text-white rounded-md py-1 px-[5px]'
-                          onClick={() => deleteEvent(event._id as string)}><MdDelete className='w-[15px]'/></button>
-                  <button className='bg-blue-500 hover:bg-blue-400 transition-all text-white rounded-md py-1 px-[5px]'
-                          onClick={() => changeEvent()}><FaPen className='w-[15px]'/></button>
-                  <button className='bg-green-500 hover:bg-green-400 transition-all text-white rounded-md py-1 px-[5px]'
-                          onClick={() => duplicateEvent(event)}><HiDocumentDuplicate className='w-[15px]'/></button>
-                </div>
-              </li>
-            ))}
-          </ul>
-      </div>
+    <Fragment>
+        <div className="mt-4">
+          {!filteredEvents.length &&
+              <h3 className='bg-gray-200 py-[5px] px-[10px] rounded-md'>
+                  You have no events for {selectedDate.toDateString()}
+              </h3>
+          }
+            <ul className='max-w-[290px] flex flex-col mt-2 gap-2'>
+              {filteredEvents.map((event: IEvent) => (
+                <li
+                  className={`p-[5px] bg-gray-200 rounded-md gap-2 items-center flex justify-between ${getLineClassName(event.time)} ${passedEvents.includes(event._id as string) ? 'event-passed' : ''}`}
+                  key={event._id}>
+                  <div>
+                    <strong className='break-words'>{event.title}</strong> - {event.time}
+                    <p className='break-words'>{event.description}</p>
+                  </div>
+                  <div className='flex flex-col gap-1'>
+                    <button className='bg-red-500 hover:bg-red-400 transition-all text-white rounded-md py-1 px-[5px]'
+                            onClick={() => deleteEvent(event._id as string)}><MdDelete className='w-[15px]'/></button>
+                    <button className='bg-blue-500 hover:bg-blue-400 transition-all text-white rounded-md py-1 px-[5px]'
+                            onClick={() => changeEvent(event)}><FaPen className='w-[15px]'/></button>
+                    <button
+                      className='bg-green-500 hover:bg-green-400 transition-all text-white rounded-md py-1 px-[5px]'
+                      onClick={() => duplicateEvent(event)}><HiDocumentDuplicate className='w-[15px]'/></button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+        </div>
+        {isChangeEventModalOpen && <ChangeEventModal eventToChange={eventToChange} setEvents={setEvents} setIsChangeEventModalOpen={setIsChangeEventModalOpen} isChangeEventModalOpen={isChangeEventModalOpen} />}
+    </Fragment>
+
   );
 };

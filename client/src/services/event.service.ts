@@ -10,6 +10,14 @@ class EventService{
     }
   }
 
+  changeEvent = async (eventId: string, eventData: IEvent) => {
+    try {
+      return await $api.put(`/events/${eventId}`,{eventData});
+    } catch (error) {
+      console.error('Error with deleting event:', error);
+    }
+  }
+
   addEvent = async (eventData: IEvent, userId: string) => {
     try {
       return await $api.post('/events', {eventData, userId});
@@ -17,6 +25,7 @@ class EventService{
       console.error('Error with adding event:', error);
     }
   }
+
 }
 
 export default new EventService();

@@ -20,9 +20,11 @@ class EventController {
     }
 
     async deleteEvent(req, res) {
+
         try {
             const sessionUser = tokenService.validateAccessToken((req.headers.authorization).replace('Bearer ', ''));
             const userId = sessionUser.id;
+
             const eventId = req.params.eventId;
 
             const user = await User.findById(userId);
@@ -45,6 +47,39 @@ class EventController {
             return res.status(500).json({ message: "Internal server error" });
         }
     }
+
+    async updateEvent(req, res) {
+        try {
+            const { title, date, time, description } = req.body.eventData;
+            const eventId = req.params.eventId;
+
+            const sessionUser = tokenService.validateAccessToken((req.headers.authorization).replace('Bearer ', ''));
+            const userId = sessionUser.id;
+
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+
+            const event = user.events.find(event => event._id.toString() === eventId);
+            if (!event) {
+                return res.status(404).json({ message: "Event not found" });
+            }
+
+            event.title = title;
+            event.date = date;
+            event.time = time;
+            event.description = description;
+
+            await user.save();
+
+            return res.status(200).json({ message: "Event updated successfully", event });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    }
+
 }
 
 

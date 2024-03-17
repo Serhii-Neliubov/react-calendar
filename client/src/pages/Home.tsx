@@ -14,7 +14,6 @@ export const Home = ({setIsAuth}: HomeProps) => {
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [events, setEvents] = useState<IEvent[]>([]);
-  const [isEventFormOpen, setIsEventFormOpen] = useState(false);
 
   const currentDate = new Date();
 
@@ -70,9 +69,9 @@ export const Home = ({setIsAuth}: HomeProps) => {
 
       <h2 className="mb-4 text-2xl font-bold text-center">{date.toLocaleString('default', {month: 'long'})} {date.getFullYear()}</h2>
 
-      <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} date={date}/>
-      <AddEventModal setEvents={setEvents} events={events} date={selectedDate} setIsEventFormOpen={setIsEventFormOpen} isEventFormOpen={isEventFormOpen}/>
-      <EventList setIsEventFormOpen={setIsEventFormOpen} selectedDate={selectedDate} events={events} setEvents={setEvents}/>
+      <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} date={date} />
+      <AddEventModal setEvents={setEvents} events={events} date={selectedDate} />
+      <EventList selectedDate={selectedDate} events={events} setEvents={setEvents} />
 
       <button className='fixed bottom-4 left-4 bg-red-500 text-white py-[10px] px-[15px] rounded-md hover:bg-red-400 transition-all' onClick={logoutHandler}>
         Logout

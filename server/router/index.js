@@ -14,5 +14,6 @@ router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.post('/events', eventController.addEvent);
 router.delete('/events/:eventId', eventController.deleteEvent);
+router.put('/events/:eventId', eventController.updateEvent);
 
 module.exports = router
