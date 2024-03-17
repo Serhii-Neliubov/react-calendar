@@ -2,14 +2,16 @@ import {IEvent} from "../models/IEvent.ts";
 import { MdDelete } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
 import {useEffect, useState} from "react";
+import UserService from "../services/user.service.ts";
+import { HiDocumentDuplicate } from "react-icons/hi";
 
 interface EventListProps {
   selectedDate: Date | null;
   events: IEvent[];
-  deleteEvent: (id: string) => void;
+  setEvents: (events: IEvent[]) => void;
 }
 
-export const EventList = ({selectedDate, events, deleteEvent}: EventListProps) => {
+export const EventList = ({selectedDate, events, setEvents}: EventListProps) => {
   const [passedEvents, setPassedEvents] = useState<string[]>([]);
 
   useEffect(() => {
@@ -55,6 +57,20 @@ export const EventList = ({selectedDate, events, deleteEvent}: EventListProps) =
     return isEventPassed(eventTime) ? 'line-below' : 'line-above';
   };
 
+  const deleteEvent = async (id: string) => {
+    const data = await UserService.deleteEvent(id);
+
+    if(data) {
+      setEvents(data?.data.events)
+    }
+  }
+
+  const changeEvent = async () => {
+  }
+
+  const duplicateEvent = async () => {
+  }
+
   return (
     selectedDate &&
       <div className="mt-4">
@@ -72,11 +88,13 @@ export const EventList = ({selectedDate, events, deleteEvent}: EventListProps) =
                   <strong className='break-words'>{event.title}</strong> - {event.time}
                   <p className='break-words'>{event.description}</p>
                 </div>
-                <div className='flex gap-1'>
+                <div className='flex flex-col gap-1'>
                   <button className='bg-red-500 text-white rounded-md py-1 px-[5px]'
                           onClick={() => deleteEvent(event._id as string)}><MdDelete className='w-[15px]'/></button>
                   <button className='bg-blue-500 text-white rounded-md py-1 px-[5px]'
-                          onClick={() => deleteEvent(event._id as string)}><FaPen className='w-[15px]'/></button>
+                          onClick={() => changeEvent()}><FaPen className='w-[15px]'/></button>
+                  <button className='bg-green-500 text-white rounded-md py-1 px-[5px]'
+                          onClick={() => duplicateEvent()}><HiDocumentDuplicate className='w-[15px]'/></button>
                 </div>
               </li>
             ))}

@@ -42,13 +42,7 @@ export const Home = ({setIsAuth}: HomeProps) => {
     setEvents(userDto?.data.events || [])
   }
 
-  const deleteEvent = async (id: string) => {
-    const data = await UserService.deleteEvent(id);
 
-    if(data) {
-      setEvents(data?.data.events)
-    }
-  }
 
   const returnToCurrentDateHandler = () => {
     setSelectedDate(new Date());
@@ -81,7 +75,7 @@ export const Home = ({setIsAuth}: HomeProps) => {
 
       <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} date={date}/>
       <AddEventModal setEvents={setEvents} events={events} date={selectedDate}/>
-      <EventList selectedDate={selectedDate} events={events} deleteEvent={deleteEvent}/>
+      <EventList selectedDate={selectedDate} events={events} setEvents={setEvents}/>
 
       <button className='fixed bottom-4 left-4 bg-red-500 text-white py-[10px] px-[15px] rounded-md hover:bg-red-400 transition-all' onClick={logoutHandler}>
         Logout

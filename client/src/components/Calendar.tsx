@@ -4,7 +4,6 @@ interface CalendarProps {
   selectedDate: Date | null;
 }
 
-
 export const Calendar = ({ setSelectedDate, date, selectedDate }: CalendarProps) => {
   const totalDays = getDaysInMonth(date.getFullYear(), date.getMonth());
   const monthlyDays = Array.from({ length: totalDays }, (_, index) => index + 1);
