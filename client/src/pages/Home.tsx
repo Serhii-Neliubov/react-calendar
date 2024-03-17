@@ -79,7 +79,7 @@ export const Home = ({setIsAuth}: HomeProps) => {
 
       <h2 className="mb-4 text-2xl font-bold text-center">{date.toLocaleString('default', {month: 'long'})} {date.getFullYear()}</h2>
 
-      <Calendar setSelectedDate={setSelectedDate} date={date}/>
+      <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} date={date}/>
       <AddEventModal setEvents={setEvents} events={events} date={selectedDate}/>
       <EventList selectedDate={selectedDate} events={events} deleteEvent={deleteEvent}/>
 

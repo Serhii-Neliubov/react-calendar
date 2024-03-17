@@ -1,9 +1,10 @@
 interface CalendarProps {
   setSelectedDate: (date: Date) => void;
   date: Date;
+  selectedDate: Date | null;
 }
 
-export const Calendar = ({ setSelectedDate, date }: CalendarProps) => {
+export const Calendar = ({ setSelectedDate, date, selectedDate }: CalendarProps) => {
   const totalDays = getDaysInMonth(date.getFullYear(), date.getMonth());
   const monthlyDays = Array.from({ length: totalDays }, (_, index) => index + 1);
   const firstDayOfWeek = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -37,7 +38,7 @@ export const Calendar = ({ setSelectedDate, date }: CalendarProps) => {
       {monthlyDays.map(day => (
         <div
           key={day}
-          className={`text-center max-w-[30px] max-h-[30px] rounded-md cursor-pointer`}
+          className={`text-center max-w-[30px] max-h-[30px] rounded-md cursor-pointer ${selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === date.getMonth() && selectedDate.getFullYear() === date.getFullYear() ? 'bg-blue-500 text-white' : ''}`}
           onClick={() => handleDayClick(day)}
         >
           {day}

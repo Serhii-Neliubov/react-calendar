@@ -58,8 +58,11 @@ export const EventList = ({selectedDate, events, deleteEvent}: EventListProps) =
   return (
     selectedDate &&
       <div className="mt-4">
-          <h3 className='bg-gray-200 py-[5px] px-[10px] rounded-md'>Events
-              for {selectedDate.toDateString()}</h3>
+        {!filteredEvents.length &&
+            <h3 className='bg-gray-200 py-[5px] px-[10px] rounded-md'>
+              You have no events for {selectedDate.toDateString()}
+            </h3>
+        }
           <ul className='max-w-[290px] flex flex-col mt-2 gap-2'>
             {filteredEvents.map((event: IEvent) => (
               <li
