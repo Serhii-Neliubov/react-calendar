@@ -14,27 +14,25 @@ interface EventFormProps {
   events: IEvent[];
 }
 
-export const AddEventModal = ({setEvents}: EventFormProps) => {
+export const AddEventModal = ({date, setEvents}: EventFormProps) => {
   const [title, setTitle] = useState('');
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
-  const [date, setDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(date instanceof Date ? date : null);
   const [isEventFormOpen, setIsEventFormOpen] = useState(false);
 
   const getAllEvents = async () => {
     const userDto = await UserService.getDto();
-
     setEvents(userDto?.data.events || [])
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const userDto = await userService.getDto();
 
     const eventData: IEvent = {
       title,
-      date: date?.toISOString() || '',
+      date: selectedDate?.toISOString() || '',
       time,
       description
     };
@@ -45,7 +43,7 @@ export const AddEventModal = ({setEvents}: EventFormProps) => {
     setTitle('');
     setTime('');
     setDescription('');
-    setDate(null);
+    setSelectedDate(date instanceof Date ? date : null); // Сброс выбранной даты
 
     setIsEventFormOpen(false);
   };
@@ -71,8 +69,8 @@ export const AddEventModal = ({setEvents}: EventFormProps) => {
                           <label htmlFor="date" className="block font-semibold mb-1">Date</label>
                           <DatePicker
                               id="date"
-                              selected={date}
-                              onChange={(date: Date | null) => setDate(date)}
+                              selected={selectedDate}
+                              onChange={(date: Date | null) => setSelectedDate(date)}
                               className="border rounded-md p-2"
                               dateFormat="yyyy-MM-dd"
                               required
@@ -93,3 +91,4 @@ export const AddEventModal = ({setEvents}: EventFormProps) => {
     </React.Fragment>
   );
 };
+
