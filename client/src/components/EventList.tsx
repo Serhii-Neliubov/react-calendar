@@ -106,20 +106,22 @@ export const EventList = ({selectedDate, events, setEvents}: EventListProps) => 
                     <strong className='break-words'>{event.title}</strong> - {event.time}
                     <p className='break-words'>{event.description}</p>
                   </div>
-                  <div className='flex flex-col gap-1'>
-                    <button className='bg-red-500 hover:bg-red-400 transition-all text-white rounded-md py-1 px-[5px]'
-                            onClick={() => deleteEvent(event._id as string)}><MdDelete className='w-[15px]'/></button>
+                  <div className='flex gap-1'>
                     <button className='bg-blue-500 hover:bg-blue-400 transition-all text-white rounded-md py-1 px-[5px]'
                             onClick={() => changeEvent(event)}><FaPen className='w-[15px]'/></button>
                     <button
                       className='bg-green-500 hover:bg-green-400 transition-all text-white rounded-md py-1 px-[5px]'
                       onClick={() => duplicateEvent(event)}><HiDocumentDuplicate className='w-[15px]'/></button>
+                    <button className='bg-red-500 ml-1 hover:bg-red-400 transition-all text-white rounded-md py-1 px-[5px]'
+                            onClick={() => deleteEvent(event._id as string)}><MdDelete className='w-[15px]'/></button>
                   </div>
                 </li>
               ))}
             </ul>
         </div>
-        {isChangeEventModalOpen && <ChangeEventModal eventToChange={eventToChange} setEvents={setEvents} setIsChangeEventModalOpen={setIsChangeEventModalOpen} isChangeEventModalOpen={isChangeEventModalOpen} />}
+      {isChangeEventModalOpen && <ChangeEventModal eventToChange={eventToChange} setEvents={setEvents}
+                                                   setIsChangeEventModalOpen={setIsChangeEventModalOpen}
+                                                   isChangeEventModalOpen={isChangeEventModalOpen}/>}
     </Fragment>
 
   );
