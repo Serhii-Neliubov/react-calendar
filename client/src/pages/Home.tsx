@@ -17,7 +17,6 @@ export const Home = ({setIsAuth}: HomeProps) => {
 
   const currentDate = new Date();
 
-
   const goToPreviousMonth = () => {
     setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1));
   };
@@ -35,14 +34,11 @@ export const Home = ({setIsAuth}: HomeProps) => {
     }
   }
 
-
   const getAllEvents = async () => {
     const userDto = await UserService.getDto();
 
     setEvents(userDto?.data.events || [])
   }
-
-
 
   const returnToCurrentDateHandler = () => {
     setSelectedDate(new Date());

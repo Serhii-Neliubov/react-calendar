@@ -43,7 +43,7 @@ export const AddEventModal = ({date, setEvents}: EventFormProps) => {
     setTitle('');
     setTime('');
     setDescription('');
-    setSelectedDate(date instanceof Date ? date : null); // Сброс выбранной даты
+    setSelectedDate(date instanceof Date ? date : null);
 
     setIsEventFormOpen(false);
   };

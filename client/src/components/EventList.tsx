@@ -4,6 +4,8 @@ import { FaPen } from "react-icons/fa";
 import {useEffect, useState} from "react";
 import UserService from "../services/user.service.ts";
 import { HiDocumentDuplicate } from "react-icons/hi";
+import EventService from "../services/event.service.ts";
+import userService from "../services/user.service.ts";
 
 interface EventListProps {
   selectedDate: Date | null;
@@ -58,7 +60,7 @@ export const EventList = ({selectedDate, events, setEvents}: EventListProps) => 
   };
 
   const deleteEvent = async (id: string) => {
-    const data = await UserService.deleteEvent(id);
+    const data = await EventService.deleteEvent(id);
 
     if(data) {
       setEvents(data?.data.events)
@@ -68,7 +70,15 @@ export const EventList = ({selectedDate, events, setEvents}: EventListProps) => 
   const changeEvent = async () => {
   }
 
-  const duplicateEvent = async () => {
+  const getAllEvents = async () => {
+    const userDto = await UserService.getDto();
+    setEvents(userDto?.data.events || [])
+  }
+
+  const duplicateEvent = async (event: IEvent) => {
+    const userDto = await userService.getDto();
+    await EventService.addEvent({...event}, userDto?.data.user.id);
+    await getAllEvents();
   }
 
   return (
@@ -94,7 +104,7 @@ export const EventList = ({selectedDate, events, setEvents}: EventListProps) => 
                   <button className='bg-blue-500 text-white rounded-md py-1 px-[5px]'
                           onClick={() => changeEvent()}><FaPen className='w-[15px]'/></button>
                   <button className='bg-green-500 text-white rounded-md py-1 px-[5px]'
-                          onClick={() => duplicateEvent()}><HiDocumentDuplicate className='w-[15px]'/></button>
+                          onClick={() => duplicateEvent(event)}><HiDocumentDuplicate className='w-[15px]'/></button>
                 </div>
               </li>
             ))}
