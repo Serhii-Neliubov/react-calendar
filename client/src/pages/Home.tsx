@@ -87,8 +87,7 @@ export const Home = ({setIsAuth}: HomeProps) => {
   }
 
   const deleteEvent = async (id: string) => {
-    const userDto = await UserService.getDto();
-    const data = await UserService.deleteEvent(id, userDto?.data.user.id);
+    const data = await UserService.deleteEvent(id);
 
     if(data) {
       setEvents(data?.data.events)

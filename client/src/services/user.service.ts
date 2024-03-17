@@ -10,9 +10,9 @@ class UserService{
     }
   }
 
-  deleteEvent = async (eventId: string, userId: string) => {
+  deleteEvent = async (eventId: string) => {
     try {
-      return await $api.delete(`/events/${eventId}/${userId}`);
+      return await $api.delete(`/events/${eventId}`);
     } catch (error) {
       console.error('Error with deleting event:', error);
     }
